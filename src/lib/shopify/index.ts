@@ -1,5 +1,12 @@
 
-const SHOPIFY_GRAPHQL_API_ENDPOINT = `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2024-01/graphql.json`;
+
+const getShopifyEndpoint = () => {
+  const domain = process.env.SHOPIFY_STORE_DOMAIN;
+  if (!domain) {
+    throw new Error('SHOPIFY_STORE_DOMAIN is not defined in environment variables');
+  }
+  return `https://${domain}/api/2024-01/graphql.json`;
+};
 
 export async function shopifyFetch<T>({
   query,
@@ -14,11 +21,18 @@ export async function shopifyFetch<T>({
 }): Promise<{ status: number; body: T }> {
 
   try {
-    const result = await fetch(SHOPIFY_GRAPHQL_API_ENDPOINT, {
+    const endpoint = getShopifyEndpoint();
+    const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+
+    if (!token) {
+      throw new Error('SHOPIFY_STOREFRONT_ACCESS_TOKEN is not defined');
+    }
+
+    const result = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
+        'X-Shopify-Storefront-Access-Token': token,
         ...headers,
       },
       body: JSON.stringify({
@@ -31,10 +45,15 @@ export async function shopifyFetch<T>({
       },
     });
 
+    if (!result.ok) {
+      const text = await result.text();
+      throw new Error(`Shopify API responded with status ${result.status}: ${text}`);
+    }
+
     const body = await result.json();
 
     if (body.errors) {
-      throw body.errors[0];
+      throw new Error(`Shopify GraphQL Error: ${JSON.stringify(body.errors[0])}`);
     }
 
     return {
@@ -42,14 +61,11 @@ export async function shopifyFetch<T>({
       body,
     };
   } catch (e: unknown) {
-
     console.error('Shopify Fetch Error:', e);
-    throw {
-      error: e,
-      query,
-    };
+    throw e; // Rethrow the error to be caught by Next.js error boundary/server component handler
   }
 }
+
 
 export type Product = {
   id: string;
@@ -165,23 +181,33 @@ const getProductsQuery = `
 `;
 
 export async function getProducts(first: number = 10): Promise<Product[]> {
-  const res = await shopifyFetch<{ data: { products: { edges: { node: Product }[] } } }>({
-    query: getProductsQuery,
-    variables: { first },
-  });
+  try {
+    const res = await shopifyFetch<{ data: { products: { edges: { node: Product }[] } } }>({
+      query: getProductsQuery,
+      variables: { first },
+    });
 
-  return res.body.data.products.edges.map((edge) => edge.node);
+    return res.body.data.products.edges.map((edge) => edge.node);
+  } catch (error) {
+    console.error('getProducts failed:', error);
+    return [];
+  }
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
-  const res = await shopifyFetch<{ data: { product: Product } }>({
-    query: getProductQuery,
-    variables: {
-      handle,
-    },
-  });
+  try {
+    const res = await shopifyFetch<{ data: { product: Product } }>({
+      query: getProductQuery,
+      variables: {
+        handle,
+      },
+    });
 
-  return res.body.data.product;
+    return res.body.data.product;
+  } catch (error) {
+    console.error(`getProduct failed for handle ${handle}:`, error);
+    return undefined;
+  }
 }
 
 const checkoutCreateMutation = `
