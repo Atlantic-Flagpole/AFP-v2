@@ -146,7 +146,7 @@ export default async function ProductPage({ params }: Props) {
             <div className="bg-zinc-50 border-t border-zinc-200">
                 <TrustBadges />
             </div>
-            <ProductStorytelling product={product} />
+            <ProductStorytelling />
             <ReviewBlock />
             <StickyBuyBar product={product} />
         </div>
