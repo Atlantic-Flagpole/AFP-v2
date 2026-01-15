@@ -1,18 +1,27 @@
 
 import { MetadataRoute } from 'next';
-import { getProducts } from '@/lib/shopify';
+import { getProducts, getCollections } from '@/lib/shopify';
 import { LOCATIONS } from '@/data/locations';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://atlanticflagpole.com'; // Adjust to dynamic domain if needed
+    const baseUrl = 'https://atlanticflagpole.com';
 
-    // Products from Shopify
+    // Products
     const products = await getProducts(100);
     const productUrls = products.map((product) => ({
         url: `${baseUrl}/products/${product.handle}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.8,
+    }));
+
+    // Collections
+    const collections = await getCollections(100);
+    const collectionUrls = collections.map((collection) => ({
+        url: `${baseUrl}/collections/${collection.handle}`,
+        lastModified: new Date(collection.updatedAt),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
     }));
 
     // Programmatic SEO Location Pages
@@ -33,5 +42,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ];
 
-    return [...staticUrls, ...productUrls, ...locationUrls];
+    return [...staticUrls, ...productUrls, ...collectionUrls, ...locationUrls];
 }

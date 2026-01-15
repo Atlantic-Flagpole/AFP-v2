@@ -226,6 +226,35 @@ const getProductsQuery = `
   }
 `;
 
+
+const getCollectionsQuery = `
+  query getCollections($first: Int!) {
+    collections(first: $first) {
+      edges {
+        node {
+          handle
+          title
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+
+export async function getCollections(first: number = 100): Promise<{ handle: string; title: string; updatedAt: string }[]> {
+  try {
+    const res = await shopifyFetch<{ data: { collections: { edges: { node: { handle: string; title: string; updatedAt: string } }[] } } }>({
+      query: getCollectionsQuery,
+      variables: { first },
+    });
+
+    return res.body.data.collections.edges.map((edge) => edge.node);
+  } catch (error) {
+    console.error('getCollections failed:', error);
+    return [];
+  }
+}
+
 export async function getProducts(first: number = 10): Promise<Product[]> {
   try {
     const res = await shopifyFetch<{ data: { products: { edges: { node: Product }[] } } }>({
