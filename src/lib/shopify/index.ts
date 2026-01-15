@@ -255,6 +255,73 @@ export async function getCollections(first: number = 100): Promise<{ handle: str
   }
 }
 
+const getCollectionQuery = `
+  query getCollection($handle: String!) {
+    collection(handle: $handle) {
+      handle
+      title
+      descriptionHtml
+      products(first: 100) {
+        edges {
+          node {
+            id
+            handle
+            title
+            descriptionHtml
+            images(first: 1) {
+              edges {
+                node {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            variants(first: 1) {
+              edges {
+                node {
+                  id
+                  price {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export async function getCollection(handle: string): Promise<{ title: string; descriptionHtml: string; products: Product[] } | undefined> {
+  try {
+    const res = await shopifyFetch<{ data: { collection: { title: string; descriptionHtml: string; products: { edges: { node: Product }[] } } } }>({
+      query: getCollectionQuery,
+      variables: { handle },
+    });
+
+    if (!res.body.data.collection) return undefined;
+
+    return {
+      title: res.body.data.collection.title,
+      descriptionHtml: res.body.data.collection.descriptionHtml,
+      products: res.body.data.collection.products.edges.map((edge) => edge.node),
+    };
+  } catch (error) {
+    console.error(`getCollection failed for handle ${handle}:`, error);
+    return undefined;
+  }
+}
+
 export async function getProducts(first: number = 10): Promise<Product[]> {
   try {
     const res = await shopifyFetch<{ data: { products: { edges: { node: Product }[] } } }>({
