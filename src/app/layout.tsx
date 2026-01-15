@@ -7,7 +7,7 @@ import CartDrawer from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
 import { BRAND_CONFIG } from "@/lib/shopify/brand";
 
-export const runtime = "edge";
+
 
 const inter = Inter({
   variable: "--font-inter",
