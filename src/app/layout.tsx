@@ -9,6 +9,8 @@ import { BRAND_CONFIG } from "@/lib/shopify/brand";
 
 
 
+import { getMenu } from "@/lib/shopify";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -30,18 +32,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const menu = await getMenu('main-menu-new');
+
   return (
     <html lang="en">
       <body
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col font-sans`}
       >
         <CartProvider>
-          <Header />
+          <Header menu={menu} />
           <CartDrawer />
           <main className="flex-grow">
             {children}

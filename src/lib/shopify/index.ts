@@ -234,9 +234,51 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
     return res.body.data.product;
   } catch (error) {
     console.error(`getProduct failed for handle ${handle}:`, error);
-    return undefined;
   }
 }
+
+export type Menu = {
+  title: string;
+  path: string;
+  items?: Menu[];
+};
+
+const getMenuQuery = `
+  query getMenu($handle: String!) {
+    menu(handle: $handle) {
+      items {
+        title
+        url
+        items {
+          title
+          url
+        }
+      }
+    }
+  }
+`;
+
+export async function getMenu(handle: string): Promise<Menu[]> {
+  try {
+    const res = await shopifyFetch<{ data: { menu?: { items: { title: string; url: string; items: any[] }[] } } }>({
+      query: getMenuQuery,
+      variables: { handle },
+    });
+
+    return (res.body.data.menu?.items || []).map((item: { title: string; url: string; items: any[] }) => ({
+      title: item.title,
+      path: item.url.replace(process.env.SHOPIFY_STORE_DOMAIN || '', '').replace('https://', '').replace('http://', '').replace('www.', ''),
+      items: item.items?.map((subItem: { title: string; url: string }) => ({
+        title: subItem.title,
+        path: subItem.url.replace(process.env.SHOPIFY_STORE_DOMAIN || '', '').replace('https://', '').replace('http://', '').replace('www.', '')
+      }))
+    }));
+  } catch (error) {
+    console.error(`getMenu failed for handle ${handle}:`, error);
+    return [];
+  }
+}
+
 
 const checkoutCreateMutation = `
   mutation checkoutCreate($input: CheckoutCreateInput!) {
