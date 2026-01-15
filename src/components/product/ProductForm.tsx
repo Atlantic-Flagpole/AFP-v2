@@ -9,18 +9,16 @@ export default function ProductForm({ product }: { product: Product }) {
     const { addItem } = useCart();
     const [isAdding, setIsAdding] = useState(false);
 
-    // For now, we take the first variant. In a full implementation, we'd handle variant selection.
-    const variant = {
-        id: product.id, // Assuming id is variant id for now or fetching first variant
-        title: product.title,
-        price: product.priceRange.minVariantPrice,
-    };
+    const firstVariant = product.variants.edges[0]?.node;
+    const variantId = firstVariant?.id || '';
 
     const handleAddToCart = () => {
+        if (!variantId) return;
+
         setIsAdding(true);
         addItem({
             id: product.id,
-            variantId: product.id, // Placeholder
+            variantId: variantId,
             title: product.title,
             handle: product.handle,
             quantity: 1,

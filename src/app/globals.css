@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@config "../../tailwind.config.js";
-
 :root {
   --background: #ffffff;
   --foreground: #001b40;
@@ -26,7 +24,7 @@
   --color-accent-hover: var(--accent-hover);
   --font-sans: "Outfit", sans-serif;
   --font-display: "Clash Display", sans-serif;
-  
+
   --radius-4xl: 2rem;
   --radius-5xl: 3rem;
 }
@@ -37,7 +35,12 @@
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply tracking-tighter font-bold text-navy uppercase;
   }
 }
@@ -46,7 +49,7 @@
   .glass {
     @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl;
   }
-  
+
   .glass-dark {
     @apply bg-navy/80 backdrop-blur-xl border border-white/10 shadow-2xl;
   }
@@ -60,7 +63,14 @@
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
   }
 }

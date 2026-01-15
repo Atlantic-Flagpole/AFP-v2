@@ -17,8 +17,12 @@ export const BRAND_CONFIG = {
     ],
 
     social: {
-        instagram: 'https://www.instagram.com/atlanticflagpole/',
-        facebook: 'https://www.facebook.com/atlanticflagpole/',
+        instagram: 'https://www.instagram.com/bankroll_bop93/',
+        tiktok: 'https://www.tiktok.com/@bankrollbop?is_from_webapp=1&sender_device=pc',
+    },
+    contact: {
+        phone: '518-917-3429',
+        phoneClick: 'tel:5189173429',
     },
 };
 

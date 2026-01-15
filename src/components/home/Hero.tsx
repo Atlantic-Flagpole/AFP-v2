@@ -1,6 +1,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { BRAND_CONFIG } from '@/lib/shopify/brand';
 
 export default function Hero() {
     return (
@@ -59,13 +60,24 @@ export default function Hero() {
                         {[
                             { label: 'Made in USA', icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> },
                             { label: 'Veteran Owned', icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> },
-                            { label: 'Forever Warranty', icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> },
+                            { label: BRAND_CONFIG.contact.phone, icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> },
                         ].map((item) => (
                             <div key={item.label} className="flex items-center justify-center gap-3 group">
-                                <div className="p-2 bg-white/5 rounded-lg group-hover:bg-accent/20 transition-colors text-accent">
-                                    {item.icon}
-                                </div>
-                                <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] group-hover:text-white/80 transition-colors">{item.label}</span>
+                                {item.label === BRAND_CONFIG.contact.phone ? (
+                                    <a href={BRAND_CONFIG.contact.phoneClick} className="flex items-center gap-3 group">
+                                        <div className="p-2 bg-white/5 rounded-lg group-hover:bg-accent/20 transition-colors text-accent">
+                                            {item.icon}
+                                        </div>
+                                        <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] group-hover:text-white/80 transition-colors">{item.label}</span>
+                                    </a>
+                                ) : (
+                                    <>
+                                        <div className="p-2 bg-white/5 rounded-lg group-hover:bg-accent/20 transition-colors text-accent">
+                                            {item.icon}
+                                        </div>
+                                        <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] group-hover:text-white/80 transition-colors">{item.label}</span>
+                                    </>
+                                )}
                             </div>
                         ))}
                     </div>
