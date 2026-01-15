@@ -18,6 +18,10 @@ export default function StickyBuyBar({ product }: { product: Product }) {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const handleScrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
         <div className={`fixed inset-x-0 bottom-0 z-[60] p-4 md:p-6 transition-all duration-500 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
             <div className="container mx-auto px-4 max-w-4xl">
@@ -34,9 +38,12 @@ export default function StickyBuyBar({ product }: { product: Product }) {
                         </div>
                     </div>
 
-                    <button className="px-8 md:px-12 py-3 md:py-4 bg-navy text-white text-base md:text-lg font-bold rounded-full hover:bg-accent transition-all active:scale-[0.98]">
-                        <span className="hidden sm:inline">Add to Cart</span>
-                        <span className="sm:hidden">Buy Now - {new Intl.NumberFormat('en-US', {
+                    <button
+                        onClick={handleScrollToTop}
+                        className="px-8 md:px-12 py-3 md:py-4 bg-navy text-white text-base md:text-lg font-bold rounded-full hover:bg-accent transition-all active:scale-[0.98]"
+                    >
+                        <span className="hidden sm:inline">Configure & Buy</span>
+                        <span className="sm:hidden">Buy - {new Intl.NumberFormat('en-US', {
                             style: 'currency',
                             currency: price.currencyCode,
                         }).format(parseFloat(price.amount))}</span>
