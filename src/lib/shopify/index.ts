@@ -374,12 +374,12 @@ const getMenuQuery = `
 
 export async function getMenu(handle: string): Promise<Menu[]> {
   try {
-    const res = await shopifyFetch<{ data: { menu?: { items: { title: string; url: string; items: any[] }[] } } }>({
+    const res = await shopifyFetch<{ data: { menu?: { items: { title: string; url: string; items: { title: string; url: string }[] }[] } } }>({
       query: getMenuQuery,
       variables: { handle },
     });
 
-    return (res.body.data.menu?.items || []).map((item: { title: string; url: string; items: any[] }) => ({
+    return (res.body.data.menu?.items || []).map((item: { title: string; url: string; items: { title: string; url: string }[] }) => ({
       title: item.title,
       path: item.url.replace(process.env.SHOPIFY_STORE_DOMAIN || '', '').replace('https://', '').replace('http://', '').replace('www.', ''),
       items: item.items?.map((subItem: { title: string; url: string }) => ({
