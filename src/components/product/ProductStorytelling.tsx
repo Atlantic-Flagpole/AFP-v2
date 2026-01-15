@@ -1,6 +1,4 @@
 
-import { Product } from '@/lib/shopify';
-
 export default function ProductStorytelling() {
     return (
         <section className="py-24 bg-zinc-50 overflow-hidden">
