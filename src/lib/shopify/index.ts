@@ -1,12 +1,43 @@
 
+const SHOPIFY_API_VERSION = '2024-10';
 
 const getShopifyEndpoint = () => {
   const domain = process.env.SHOPIFY_STORE_DOMAIN;
   if (!domain) {
     throw new Error('SHOPIFY_STORE_DOMAIN is not defined in environment variables');
   }
-  return `https://${domain}/api/2024-01/graphql.json`;
+  return `https://${domain}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 };
+
+async function fetchWithRetry(url: string, options: RequestInit, retries = 3, timeout = 10000): Promise<Response> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+      return response;
+    } catch (error: any) {
+      const isLastRetry = i === retries - 1;
+      const isTimeout = error.name === 'AbortError';
+
+      console.error(`Shopify Fetch attempt ${i + 1}/${retries} failed:`, error.message);
+
+      if (isLastRetry) {
+        throw new Error(isTimeout ? 'Request timeout' : error.message);
+      }
+
+      const delay = Math.pow(2, i) * 1000;
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+  throw new Error('Max retries exceeded');
+}
 
 export async function shopifyFetch<T>({
   query,
@@ -19,7 +50,6 @@ export async function shopifyFetch<T>({
   headers?: HeadersInit;
   cache?: RequestCache;
 }): Promise<{ status: number; body: T }> {
-
   try {
     const endpoint = getShopifyEndpoint();
     const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
@@ -28,7 +58,7 @@ export async function shopifyFetch<T>({
       throw new Error('SHOPIFY_STOREFRONT_ACCESS_TOKEN is not defined');
     }
 
-    const result = await fetch(endpoint, {
+    const result = await fetchWithRetry(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,19 +71,15 @@ export async function shopifyFetch<T>({
       }),
       cache,
       next: {
-        revalidate: 900, // 15 minutes by default
+        revalidate: 900,
       },
     });
-
-    if (!result.ok) {
-      const text = await result.text();
-      throw new Error(`Shopify API responded with status ${result.status}: ${text}`);
-    }
 
     const body = await result.json();
 
     if (body.errors) {
-      throw new Error(`Shopify GraphQL Error: ${JSON.stringify(body.errors[0])}`);
+      console.error('Shopify GraphQL Errors:', JSON.stringify(body.errors, null, 2));
+      throw new Error(`Shopify GraphQL Error: ${body.errors[0].message}`);
     }
 
     return {
@@ -62,7 +88,7 @@ export async function shopifyFetch<T>({
     };
   } catch (e: unknown) {
     console.error('Shopify Fetch Error:', e);
-    throw e; // Rethrow the error to be caught by Next.js error boundary/server component handler
+    throw e;
   }
 }
 
