@@ -38,28 +38,73 @@ export default async function LocationPage({ params }: Props) {
 
     if (!location) notFound();
 
+    // Dynamic Copy based on Weather Zone
+    const getWeatherCopy = () => {
+        switch (location.weatherZone) {
+            case 'hurricane':
+            case 'high-wind':
+                return {
+                    headline: `Engineered for ${location.city}'s High Winds`,
+                    body: `In ${location.city}, wind gusts can be unpredictable. The Phoenix Telescoping Flagpole is rated for 100 MPH winds, ensuring your flag flies proudly even during ${location.state}'s severe weather seasons.`
+                };
+            case 'coastal':
+                return {
+                    headline: `Salt-Water Proof for ${location.city} residents`,
+                    body: `Living in ${location.city} implies exposure to salt air. Our 6000 Series Aluminum is anodized to resist corrosion, making it the only choice for coastal ${location.state} homes.`
+                };
+            case 'winter':
+                return {
+                    headline: `Freeze-Proof Design for ${location.city}`,
+                    body: `Don't let ${location.city}'s winters freeze your hardware. Our pulley-free "Securi-Lock" system has no moving parts to jam with ice, perfect for the ${location.state} cold.`
+                };
+            default:
+                return {
+                    headline: `The Last Flagpole ${location.city} Will Ever Need`,
+                    body: `Residents of ${location.city} demand quality. The Phoenix Telescoping Flagpole offers a lifetime warranty and aerospace-grade strength, perfectly suited for ${location.state} homes.`
+                };
+        }
+    };
+
+    const copy = getWeatherCopy();
+
     return (
         <div className="flex flex-col">
             {/* Dynamic Hero for Location */}
-            <section className="bg-navy py-24 text-white relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="h-full w-full flex items-center justify-center text-[20rem] font-bold uppercase rotate-12 select-none">
+            <section className="relative min-h-[60vh] flex items-center justify-center bg-navy overflow-hidden">
+                <div className="absolute inset-0 opacity-20">
+                    <div className="h-full w-full flex items-center justify-center text-[15vw] font-black uppercase -rotate-12 select-none text-white blur-sm">
                         {location.stateSlug.slice(0, 2)}
                     </div>
                 </div>
-                <div className="container mx-auto px-4 text-center relative z-10">
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tighter">
-                        Flagpoles for <span className="text-accent underline underline-offset-8 decoration-4">{location.city}, {location.state}</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/50 z-10" />
+
+                <div className="container mx-auto px-4 text-center relative z-20 pt-20">
+                    <div className="inline-flex items-center gap-2 mb-6 px-4 py-1 glass rounded-full border border-white/10">
+                        <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                        <span className="text-[10px] font-bold text-white uppercase tracking-[0.2em]">Now Shipping to {location.city}</span>
+                    </div>
+
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
+                        Flagpoles for <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-hover">{location.city}, {location.state}</span>
                     </h1>
-                    <p className="text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-                        Atlantic Flagpole is proud to serve the residents of {location.city}. Get the same high-quality, military-grade hardware used by patriots nationwide.
+
+                    <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
+                        {copy.body}
                     </p>
-                    <div className="flex justify-center gap-4">
+
+                    <div className="flex flex-col sm:flex-row justify-center gap-6">
                         <Link
                             href="/products/phoenix-telescoping-flagpole"
-                            className="px-10 py-5 bg-white text-navy font-bold rounded-full hover:bg-accent hover:text-white transition-all shadow-2xl transform hover:scale-105"
+                            className="px-10 py-5 bg-accent text-white font-black text-lg rounded-full hover:bg-accent-hover transition-all shadow-2xl shadow-accent/20 transform hover:scale-105 uppercase tracking-wide"
                         >
                             Shop Phoenix Flagpole
+                        </Link>
+                        <Link
+                            href="/collections/all"
+                            className="px-10 py-5 glass text-white font-bold text-lg rounded-full hover:bg-white/10 transition-all uppercase tracking-wide"
+                        >
+                            View All Products
                         </Link>
                     </div>
                 </div>
@@ -67,42 +112,52 @@ export default async function LocationPage({ params }: Props) {
 
             <TrustBadges />
 
-            {/* Local Content Section */}
+            {/* Weather Defense Section */}
             <section className="py-24 bg-zinc-50 border-y border-zinc-200">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-4xl font-bold text-navy mb-10 tracking-tight">Why {location.city} Residents Choose Atlantic Flagpole</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-navy/80 leading-relaxed text-lg">
-                            <div className="space-y-6">
-                                <p>
-                                    In {location.city}, we know that community and pride run deep. Whether you&apos;re flying the Stars and Stripes or a local flag, you need a flagpole that can withstand the local climate while remaining incredibly easy to operate.
+                        <div className="flex items-center gap-4 mb-8">
+                            <span className="w-12 h-1 bg-accent" />
+                            <h2 className="text-xs font-black text-navy uppercase tracking-[0.3em]">Engineered for {location.state}</h2>
+                        </div>
+
+                        <h3 className="text-4xl md:text-5xl font-black text-navy mb-12 tracking-tight">
+                            {copy.headline}
+                        </h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-navy/80 leading-relaxed text-lg">
+                            <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-navy/5 border border-navy/5">
+                                <h4 className="text-xl font-black text-navy mb-4 uppercase tracking-tighter">100 MPH Wind Guarantee</h4>
+                                <p className="text-base text-navy/60">
+                                    Traditional poles bend or snap under {location.city}'s extreme weather. Our 6000 pound-per-square-inch tensile strength aluminum ensures your flag keeps flying high.
                                 </p>
-                                <div className="p-6 bg-white rounded-3xl border border-navy/5 shadow-sm">
-                                    <h4 className="font-bold text-navy mb-2">Built for {location.state} Weather</h4>
-                                    <p className="text-sm">Our 6000 Series Aluminum is designed to handle high-wind conditions without bending or breaking.</p>
-                                </div>
                             </div>
-                            <div className="space-y-6">
-                                <p>
-                                    Our Phoenix Telescoping Flagpole is the perfect choice for homeowners in {location.state}. It eliminates the need for messy ropes and pulleys, replacing them with a secure locking system that won&apos;t fail you.
+                            <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-navy/5 border border-navy/5">
+                                <h4 className="text-xl font-black text-navy mb-4 uppercase tracking-tighter">Lifetime Warranty</h4>
+                                <p className="text-base text-navy/60">
+                                    We are so confident in our American engineering that every flagpole shipped to {location.city} comes with an iron-clad lifetime warranty. Including theft protection.
                                 </p>
-                                <div className="p-6 bg-white rounded-3xl border border-navy/5 shadow-sm">
-                                    <h4 className="font-bold text-navy mb-2">No Ropes, No Tangles</h4>
-                                    <p className="text-sm">Patented design ensures your flag flies beautifuly in {location.city} without the noise of clanging hardware.</p>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* CTA Section */}
+            {/* Internal Linking / Nearby Cities (Simple Implementation) */}
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 text-center">
-                    <h3 className="text-3xl font-bold text-navy mb-8">Ready to Fly Your Colors in {location.city}?</h3>
-                    <Link href="/collections/all" className="text-accent font-bold text-lg hover:underline underline-offset-4">
-                        Browse Our Entire Collection &rarr;
-                    </Link>
+                    <h4 className="text-sm font-bold text-navy/40 uppercase tracking-widest mb-8">We also serve these {location.state} communities</h4>
+                    <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+                        {LOCATIONS.filter(l => l.stateSlug === location.stateSlug && l.slug !== location.slug).slice(0, 6).map(neighbor => (
+                            <Link
+                                key={neighbor.slug}
+                                href={`/flagpoles/${neighbor.stateSlug}/${neighbor.slug}`}
+                                className="px-4 py-2 bg-zinc-50 rounded-lg text-sm font-bold text-navy hover:bg-navy hover:text-white transition-colors border border-zinc-100"
+                            >
+                                {neighbor.city}
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </section>
         </div>
