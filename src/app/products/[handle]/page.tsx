@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { getProduct, getProducts } from '@/lib/shopify';
 import { getBaseMetadata, getProductSchema } from '@/lib/seo';
-import Image from 'next/image';
 import TrustBadges from '@/components/ui/TrustBadges';
 import StickyBuyBar from '@/components/product/StickyBuyBar';
 import ProductStorytelling from '@/components/product/ProductStorytelling';
