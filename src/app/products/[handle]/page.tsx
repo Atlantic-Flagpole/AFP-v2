@@ -7,6 +7,7 @@ import StickyBuyBar from '@/components/product/StickyBuyBar';
 import ProductStorytelling from '@/components/product/ProductStorytelling';
 import ReviewBlock from '@/components/product/ReviewBlock';
 import ProductForm from '@/components/product/ProductForm';
+import ProductGallery from '@/components/product/ProductGallery';
 import { notFound } from 'next/navigation';
 
 type Props = {
@@ -56,33 +57,7 @@ export default async function ProductPage({ params }: Props) {
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
                         {/* Premium Gallery Layout */}
-                        <div className="sticky top-32 space-y-4">
-                            <div className="relative aspect-[4/5] w-full rounded-[3rem] bg-zinc-50 overflow-hidden shadow-2xl border border-zinc-100">
-                                {primaryImage && (
-                                    <Image
-                                        src={primaryImage.url}
-                                        alt={primaryImage.altText || product.title}
-                                        fill
-                                        className="object-cover"
-                                        priority
-                                    />
-                                )}
-                                <div className="absolute top-8 left-8">
-                                    <span className="px-6 py-3 glass text-[10px] font-black uppercase tracking-[0.3em] text-navy rounded-full">
-                                        Engineering Phase 1
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Additional Images Grid */}
-                            <div className="grid grid-cols-4 gap-4">
-                                {product.images.edges.slice(1, 5).map((edge, i) => (
-                                    <div key={i} className="relative aspect-square rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-100 hover:border-accent transition-colors cursor-pointer">
-                                        <Image src={edge.node.url} alt={edge.node.altText || ''} fill className="object-cover" />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <ProductGallery images={product.images.edges} />
 
                         {/* High-End Info */}
                         <div className="flex flex-col">
@@ -148,7 +123,7 @@ export default async function ProductPage({ params }: Props) {
             </div>
             <ProductStorytelling />
             <ReviewBlock />
-            <StickyBuyBar product={product} />
+
         </div>
     );
 }
