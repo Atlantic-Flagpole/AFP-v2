@@ -379,14 +379,24 @@ export async function getMenu(handle: string): Promise<Menu[]> {
       variables: { handle },
     });
 
-    return (res.body.data.menu?.items || []).map((item: { title: string; url: string; items: { title: string; url: string }[] }) => ({
-      title: item.title,
-      path: item.url.replace(process.env.SHOPIFY_STORE_DOMAIN || '', '').replace('https://', '').replace('http://', '').replace('www.', ''),
-      items: item.items?.map((subItem: { title: string; url: string }) => ({
-        title: subItem.title,
-        path: subItem.url.replace(process.env.SHOPIFY_STORE_DOMAIN || '', '').replace('https://', '').replace('http://', '').replace('www.', '')
-      }))
-    }));
+    return (res.body.data.menu?.items || []).map((item: { title: string; url: string; items: { title: string; url: string }[] }) => {
+      const getPath = (url: string) => {
+        try {
+          return new URL(url).pathname;
+        } catch (e) {
+          return url;
+        }
+      };
+
+      return {
+        title: item.title,
+        path: getPath(item.url),
+        items: item.items?.map((subItem: { title: string; url: string }) => ({
+          title: subItem.title,
+          path: getPath(subItem.url)
+        }))
+      };
+    });
   } catch (error) {
     console.error(`getMenu failed for handle ${handle}:`, error);
     return [];
