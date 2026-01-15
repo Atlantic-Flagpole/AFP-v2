@@ -120,11 +120,20 @@ export type Product = {
       currencyCode: string;
     };
   };
+  options: {
+    id: string;
+    name: string;
+    values: string[];
+  }[];
   variants: {
     edges: {
       node: {
         id: string;
         title: string;
+        selectedOptions: {
+          name: string;
+          value: string;
+        }[];
         price: {
           amount: string;
           currencyCode: string;
@@ -141,6 +150,11 @@ const getProductQuery = `
       handle
       title
       descriptionHtml
+      options {
+        id
+        name
+        values
+      }
       images(first: 10) {
         edges {
           node {
@@ -166,6 +180,10 @@ const getProductQuery = `
           node {
             id
             title
+            selectedOptions {
+              name
+              value
+            }
             price {
               amount
               currencyCode
