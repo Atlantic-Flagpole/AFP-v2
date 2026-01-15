@@ -33,7 +33,7 @@ export default function Hero() {
 
                     <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] mb-8 tracking-[-0.04em] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100 uppercase">
                         Phoenix: The Last Flagpole <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-hover italic">You'll Ever Need.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-hover italic">You&apos;ll Ever Need.</span>
                     </h1>
 
                     <p className="text-xl md:text-2xl text-white/70 mb-12 leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-12 duration-700 delay-200">

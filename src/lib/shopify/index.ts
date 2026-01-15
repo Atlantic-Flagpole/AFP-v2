@@ -9,7 +9,7 @@ const getShopifyEndpoint = () => {
   return `https://${domain}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 };
 
-async function fetchWithRetry(url: string, options: RequestInit, retries = 3, timeout = 10000): Promise<Response> {
+async function fetchWithRetry(url: string, options: RequestInit, retries = 3, timeout = 10000) {
   for (let i = 0; i < retries; i++) {
     try {
       const controller = new AbortController();

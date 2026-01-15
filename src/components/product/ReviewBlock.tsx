@@ -79,7 +79,7 @@ export default function ReviewBlock() {
                                     </div>
                                 </div>
                                 <h4 className="text-lg font-bold text-navy mb-2">{review.title}</h4>
-                                <p className="text-navy/70 leading-relaxed italic">"{review.content}"</p>
+                                <p className="text-navy/70 leading-relaxed italic">&quot;{review.content}&quot;</p>
                             </div>
                         ))}
                     </div>

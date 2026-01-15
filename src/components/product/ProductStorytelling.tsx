@@ -1,7 +1,7 @@
 
 import { Product } from '@/lib/shopify';
 
-export default function ProductStorytelling({ product }: { product: Product }) {
+export default function ProductStorytelling() {
     return (
         <section className="py-24 bg-zinc-50 overflow-hidden">
             <div className="container mx-auto px-4">

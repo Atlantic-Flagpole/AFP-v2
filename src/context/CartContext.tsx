@@ -33,19 +33,24 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-    const [cart, setCart] = useState<CartItem[]>([]);
-    const [isCartOpen, setIsCartOpen] = useState(false);
-
-    // Persistence
-    useEffect(() => {
-        const savedCart = localStorage.getItem('afp_cart');
-        if (savedCart) {
-            try {
-                setCart(JSON.parse(savedCart));
-            } catch (e) {
-                console.error('Failed to parse cart', e);
+    const [cart, setCart] = useState<CartItem[]>(() => {
+        if (typeof window !== 'undefined') {
+            const savedCart = localStorage.getItem('afp_cart');
+            if (savedCart) {
+                try {
+                    return JSON.parse(savedCart);
+                } catch (e) {
+                    console.error('Failed to parse cart', e);
+                }
             }
         }
+        return [];
+    });
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const [isHydrated, setIsHydrated] = useState(false);
+
+    useEffect(() => {
+        setIsHydrated(true);
     }, []);
 
     useEffect(() => {
@@ -78,6 +83,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const clearCart = () => setCart([]);
 
     const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+
+    if (!isHydrated) return null;
 
     return (
         <CartContext.Provider

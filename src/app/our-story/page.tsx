@@ -20,10 +20,10 @@ export default function OurStoryPage() {
                         </h1>
                         <div className="space-y-6 text-xl text-white/60 font-bold leading-relaxed">
                             <p>
-                                Atlantic Flagpole wasn't born in a boardroom. It was born from a desire to see the American flag flown with the dignity and durability it deserves.
+                                Atlantic Flagpole wasn&apos;t born in a boardroom. It was born from a desire to see the American flag flown with the dignity and durability it deserves.
                             </p>
                             <p>
-                                As a veteran-owned business, we understand the importance of hardware that doesn't fail. We spent years engineering a telescoping system that eliminates the frustrations of traditional poles.
+                                As a veteran-owned business, we understand the importance of hardware that doesn&apos;t fail. We spent years engineering a telescoping system that eliminates the frustrations of traditional poles.
                             </p>
                             <p>
                                 Today, we are proud to have helped over 10,000 families across America fly their colors with pride.

@@ -75,7 +75,7 @@ export default async function LocationPage({ params }: Props) {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-navy/80 leading-relaxed text-lg">
                             <div className="space-y-6">
                                 <p>
-                                    In {location.city}, we know that community and pride run deep. Whether you're flying the Stars and Stripes or a local flag, you need a flagpole that can withstand the local climate while remaining incredibly easy to operate.
+                                    In {location.city}, we know that community and pride run deep. Whether you&apos;re flying the Stars and Stripes or a local flag, you need a flagpole that can withstand the local climate while remaining incredibly easy to operate.
                                 </p>
                                 <div className="p-6 bg-white rounded-3xl border border-navy/5 shadow-sm">
                                     <h4 className="font-bold text-navy mb-2">Built for {location.state} Weather</h4>
@@ -84,7 +84,7 @@ export default async function LocationPage({ params }: Props) {
                             </div>
                             <div className="space-y-6">
                                 <p>
-                                    Our Phoenix Telescoping Flagpole is the perfect choice for homeowners in {location.state}. It eliminates the need for messy ropes and pulleys, replacing them with a secure locking system that won't fail you.
+                                    Our Phoenix Telescoping Flagpole is the perfect choice for homeowners in {location.state}. It eliminates the need for messy ropes and pulleys, replacing them with a secure locking system that won&apos;t fail you.
                                 </p>
                                 <div className="p-6 bg-white rounded-3xl border border-navy/5 shadow-sm">
                                     <h4 className="font-bold text-navy mb-2">No Ropes, No Tangles</h4>

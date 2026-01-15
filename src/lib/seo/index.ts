@@ -37,12 +37,14 @@ export function getBaseMetadata(custom?: Partial<Metadata>): Metadata {
     };
 }
 
-export function getProductSchema(product: any) {
+import { Product } from '@/lib/shopify';
+
+export function getProductSchema(product: Product) {
     return {
         '@context': 'https://schema.org/',
         '@type': 'Product',
         name: product.title,
-        image: product.images?.edges?.map((e: any) => e.node.url) || [],
+        image: product.images?.edges?.map((e) => e.node.url) || [],
         description: product.descriptionHtml.replace(/<[^>]*>?/gm, ''),
         brand: {
             '@type': 'Brand',

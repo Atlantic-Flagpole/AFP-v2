@@ -3,7 +3,6 @@
 
 import { useCart } from '@/context/CartContext';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function CartDrawer() {
     const { cart, isCartOpen, setIsCartOpen, removeItem, updateQuantity } = useCart();
@@ -36,7 +35,7 @@ export default function CartDrawer() {
                                     </svg>
                                 </div>
                                 <h3 className="text-xl font-bold text-navy mb-2 tracking-tight">Your cart is empty</h3>
-                                <p className="text-navy/40 text-sm mb-8">Looks like you haven't added anything to your cart yet.</p>
+                                <p className="text-navy/40 text-sm mb-8">Looks like you haven&apos;t added anything to your cart yet.</p>
                                 <button
                                     onClick={() => setIsCartOpen(false)}
                                     className="px-8 py-4 bg-navy text-white font-bold rounded-full hover:bg-accent transition-all"
