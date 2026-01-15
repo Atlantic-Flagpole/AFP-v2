@@ -22,14 +22,14 @@ async function fetchWithRetry(url: string, options: RequestInit, retries = 3, ti
 
       clearTimeout(timeoutId);
       return response;
-    } catch (error: any) {
+    } catch (error: unknown) {
       const isLastRetry = i === retries - 1;
-      const isTimeout = error.name === 'AbortError';
+      const isTimeout = error instanceof Error && error.name === 'AbortError';
 
-      console.error(`Shopify Fetch attempt ${i + 1}/${retries} failed:`, error.message);
+      console.error(`Shopify Fetch attempt ${i + 1}/${retries} failed:`, error instanceof Error ? error.message : 'Unknown error');
 
       if (isLastRetry) {
-        throw new Error(isTimeout ? 'Request timeout' : error.message);
+        throw new Error(isTimeout ? 'Request timeout' : (error instanceof Error ? error.message : 'Unknown error'));
       }
 
       const delay = Math.pow(2, i) * 1000;
@@ -256,7 +256,7 @@ export async function createCheckout(items: { variantId: string; quantity: numbe
     data: {
       checkoutCreate: {
         checkout: { webUrl: string };
-        checkoutUserErrors: any[];
+        checkoutUserErrors: { message: string }[];
       };
     };
   }>({
