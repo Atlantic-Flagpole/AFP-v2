@@ -47,6 +47,7 @@ export default function ProductForm({ product }: { product: Product }) {
             id: product.id,
             variantId: selectedVariant.id,
             title: product.title,
+            variantTitle: selectedVariant.title,
             handle: product.handle,
             quantity: 1,
             price: selectedVariant.price,

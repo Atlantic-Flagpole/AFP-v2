@@ -46,8 +46,8 @@ export default function CartDrawer() {
                         ) : (
                             <div className="space-y-8">
                                 {cart.map((item) => (
-                                    <div key={item.id} className="flex gap-6">
-                                        <div className="relative w-24 h-24 bg-zinc-50 rounded-2xl overflow-hidden flex-shrink-0">
+                                    <div key={item.variantId} className="flex gap-6 animate-in slide-in-from-right-10 duration-500">
+                                        <div className="relative w-24 h-24 bg-zinc-50 rounded-2xl overflow-hidden flex-shrink-0 border border-zinc-100">
                                             {item.image && (
                                                 <Image src={item.image.url} alt={item.image.altText} fill className="object-cover" />
                                             )}
@@ -55,30 +55,33 @@ export default function CartDrawer() {
                                         <div className="flex-1 flex flex-col justify-between py-1">
                                             <div>
                                                 <div className="flex items-start justify-between">
-                                                    <h4 className="font-bold text-navy leading-tight">{item.title}</h4>
-                                                    <button onClick={() => removeItem(item.id)} className="text-navy/20 hover:text-red-500 transition-colors">
+                                                    <h4 className="font-bold text-navy leading-tight line-clamp-2 pr-4">{item.title}</h4>
+                                                    <button onClick={() => removeItem(item.variantId)} className="text-navy/20 hover:text-red-500 transition-colors p-1">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.34 9m-4.78 0-.34-9m9.26-2.35a3.008 3.008 0 0 0-3.478-2.404L9.726 5.992m-.053 0L7.428 5.466m14.73 0a51.647 51.647 0 0 1-7.033.466m-9.927.466a51.647 51.647 0 0 0-7.033.466m13.974 0v1.944A2.25 2.25 0 0 1 12.627 10.5h-1.254a2.25 2.25 0 0 1-2.247-2.112V6.63m16.035 0L15.383 7.29" />
                                                         </svg>
                                                     </button>
                                                 </div>
+                                                {item.variantTitle && item.variantTitle !== 'Default Title' && (
+                                                    <p className="text-xs font-bold text-accent uppercase tracking-wider mt-1">{item.variantTitle}</p>
+                                                )}
                                                 <p className="text-sm font-medium text-navy/40 mt-1">
                                                     {new Intl.NumberFormat('en-US', { style: 'currency', currency: item.price.currencyCode }).format(parseFloat(item.price.amount))}
                                                 </p>
                                             </div>
 
                                             <div className="flex items-center justify-between">
-                                                <div className="flex items-center border border-navy/10 rounded-full h-10 px-1">
+                                                <div className="flex items-center border border-navy/10 rounded-full h-8 px-2 bg-zinc-50">
                                                     <button
-                                                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                        className="w-8 h-8 flex items-center justify-center text-navy/40 hover:text-navy"
+                                                        onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
+                                                        className="w-6 h-full flex items-center justify-center text-navy/40 hover:text-navy transition-colors font-bold"
                                                     >
                                                         -
                                                     </button>
-                                                    <span className="w-8 text-center text-sm font-bold text-navy">{item.quantity}</span>
+                                                    <span className="w-8 text-center text-xs font-black text-navy">{item.quantity}</span>
                                                     <button
-                                                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                                        className="w-8 h-8 flex items-center justify-center text-navy/40 hover:text-navy"
+                                                        onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                                                        className="w-6 h-full flex items-center justify-center text-navy/40 hover:text-navy transition-colors font-bold"
                                                     >
                                                         +
                                                     </button>

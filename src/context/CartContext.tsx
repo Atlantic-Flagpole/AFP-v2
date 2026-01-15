@@ -17,13 +17,14 @@ type CartItem = {
         url: string;
         altText: string;
     };
+    variantTitle?: string;
 };
 
 type CartContextType = {
     cart: CartItem[];
     addItem: (item: CartItem) => void;
-    removeItem: (id: string) => void;
-    updateQuantity: (id: string, quantity: number) => void;
+    removeItem: (variantId: string) => void;
+    updateQuantity: (variantId: string, quantity: number) => void;
     clearCart: () => void;
     isCartOpen: boolean;
     setIsCartOpen: (open: boolean) => void;
@@ -60,10 +61,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     const addItem = (item: CartItem) => {
         setCart((prev) => {
-            const existing = prev.find((i) => i.id === item.id);
+            const existing = prev.find((i) => i.variantId === item.variantId);
             if (existing) {
                 return prev.map((i) =>
-                    i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+                    i.variantId === item.variantId ? { ...i, quantity: i.quantity + item.quantity } : i
                 );
             }
             return [...prev, item];
@@ -71,13 +72,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setIsCartOpen(true);
     };
 
-    const removeItem = (id: string) => {
-        setCart((prev) => prev.filter((i) => i.id !== id));
+    const removeItem = (variantId: string) => {
+        setCart((prev) => prev.filter((i) => i.variantId !== variantId));
     };
 
-    const updateQuantity = (id: string, quantity: number) => {
+    const updateQuantity = (variantId: string, quantity: number) => {
         setCart((prev) =>
-            prev.map((i) => (i.id === id ? { ...i, quantity: Math.max(0, quantity) } : i))
+            prev.map((i) => (i.variantId === variantId ? { ...i, quantity: Math.max(0, quantity) } : i))
         );
     };
 
