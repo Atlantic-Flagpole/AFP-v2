@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { BRAND_CONFIG } from '@/lib/shopify/brand';
 import { useCart } from '@/context/CartContext';
+
 
 export default function Header() {
     const { totalQuantity, setIsCartOpen } = useCart();
@@ -10,15 +12,19 @@ export default function Header() {
     return (
         <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-navy/10">
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2">
-                    {/* Logo Placeholder */}
-                    <div className="w-10 h-10 bg-navy rounded-full flex items-center justify-center text-white font-bold">
-                        A
-                    </div>
-                    <span className="text-xl font-bold text-navy uppercase tracking-tighter">
+                <Link href="/" className="flex items-center gap-3">
+                    <Image
+                        src={BRAND_CONFIG.logo.url}
+                        alt={BRAND_CONFIG.logo.alt}
+                        width={40}
+                        height={40}
+                        className="w-auto h-10"
+                    />
+                    <span className="text-xl font-bold text-navy uppercase tracking-tighter hidden sm:block">
                         {BRAND_CONFIG.name}
                     </span>
                 </Link>
+
 
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-navy/70">
                     <Link href="/collections/all" className="hover:text-navy transition-colors">Shop All</Link>

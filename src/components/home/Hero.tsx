@@ -4,17 +4,19 @@ import Image from 'next/image';
 
 export default function Hero() {
     return (
-        <section className="relative w-full min-h-[80vh] flex items-center bg-[#F8F9FA] overflow-hidden">
-            {/* Background Pattern/Gradient */}
+        <section className="relative w-full min-h-[85vh] flex items-center bg-navy overflow-hidden">
+            {/* Background Image */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
-                {/* Placeholder for Hero Image */}
-                <div className="absolute right-0 top-0 w-1/2 h-full bg-navy/5">
-                    <div className="w-full h-full flex items-center justify-center text-navy/10 text-9xl font-bold uppercase rotate-12 select-none">
-                        USA
-                    </div>
-                </div>
+                <Image
+                    src="/hero.png"
+                    alt="Atlantic Flagpole Premium Residential Setting"
+                    fill
+                    className="object-cover opacity-60 scale-105 animate-in zoom-in duration-1000"
+                    priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/60 to-transparent z-10" />
             </div>
+
 
             <div className="container mx-auto px-4 relative z-20">
                 <div className="max-w-2xl">
@@ -26,15 +28,15 @@ export default function Hero() {
                                 </svg>
                             ))}
                         </div>
-                        <span className="text-sm font-semibold text-navy/80">OVER 10,000+ 5-STAR REVIEWS</span>
+                        <span className="text-sm font-semibold text-white/80">OVER 10,000+ 5-STAR REVIEWS</span>
                     </div>
 
-                    <h1 className="text-6xl md:text-7xl font-bold text-navy leading-[1.1] mb-6 tracking-tighter">
+                    <h1 className="text-6xl md:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tighter">
                         The Last Flagpole <br />
                         <span className="text-accent underline decoration-4 underline-offset-8">You'll Ever Need.</span>
                     </h1>
 
-                    <p className="text-xl text-navy/70 mb-10 leading-relaxed max-w-xl">
+                    <p className="text-xl text-white/80 mb-10 leading-relaxed max-w-xl">
                         Tired of flagpoles that bend, break, or tangle? Our telescoping flagpoles are engineered for maximum durability and effortless operation. Veteran owned, American made excellence.
                     </p>
 
@@ -56,25 +58,26 @@ export default function Hero() {
                         </Link>
                     </div>
 
-                    <div className="mt-12 flex items-center gap-8 border-t border-navy/10 pt-8">
+                    <div className="mt-12 flex items-center gap-8 border-t border-white/10 pt-8">
                         <div className="flex items-center gap-2">
-                            <svg className="w-6 h-6 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span className="text-sm font-bold text-navy/60">MADE IN USA</span>
+                            <span className="text-sm font-bold text-white/60 uppercase">Made in USA</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <svg className="w-6 h-6 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span className="text-sm font-bold text-navy/60">VETERAN OWNED</span>
+                            <span className="text-sm font-bold text-white/60 uppercase">Veteran Owned</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <svg className="w-6 h-6 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span className="text-sm font-bold text-navy/60">30-DAY GUARANTEE</span>
+                            <span className="text-sm font-bold text-white/60 uppercase">30-Day Guarantee</span>
                         </div>
+
                     </div>
                 </div>
             </div>

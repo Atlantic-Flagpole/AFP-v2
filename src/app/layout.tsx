@@ -24,7 +24,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Atlantic Flagpole | Premium Headless Storefront",
   description: "High-performance, visually stunning flagpole storefront powered by Shopify and Cloudflare Pages.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
+
 
 
 export default function RootLayout({

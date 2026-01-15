@@ -2,17 +2,18 @@
 export const BRAND_CONFIG = {
     name: 'Atlantic Flagpole',
     logo: {
-        url: '/logo.png', // Default placeholder
+        url: '/logo.png',
         alt: 'Atlantic Flagpole Logo',
         width: 200,
         height: 80,
     },
-    favicon: '/favicon.ico',
+    favicon: '/favicon.png',
     colors: {
         navy: '#001B40',
         white: '#FFFFFF',
-        accent: '#003366',
+        accent: '#CB2027',
     },
+
     social: {
         instagram: 'https://www.instagram.com/atlanticflagpole/',
         facebook: 'https://www.facebook.com/atlanticflagpole/',
