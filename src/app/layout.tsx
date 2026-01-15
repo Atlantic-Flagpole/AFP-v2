@@ -1,35 +1,34 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
+import { BRAND_CONFIG } from "@/lib/shopify/brand";
 
 export const runtime = "edge";
 
-
-
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Atlantic Flagpole | Premium Headless Storefront",
-  description: "High-performance, visually stunning flagpole storefront powered by Shopify and Cloudflare Pages.",
+  title: {
+    default: BRAND_CONFIG.name,
+    template: `%s | ${BRAND_CONFIG.name}`,
+  },
+  description: "American-made telescoping flagpoles engineered for durability and ease of use. Veteran owned.",
   icons: {
-    icon: "/favicon.png",
+    icon: BRAND_CONFIG.favicon,
   },
 };
-
-
 
 export default function RootLayout({
   children,
@@ -39,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col font-sans`}
       >
         <CartProvider>
           <Header />
@@ -47,11 +46,9 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
+          <Footer />
         </CartProvider>
-
       </body>
-
-
     </html>
   );
 }

@@ -1,4 +1,3 @@
-
 export const BRAND_CONFIG = {
     name: 'Atlantic Flagpole',
     logo: {
@@ -13,6 +12,9 @@ export const BRAND_CONFIG = {
         white: '#FFFFFF',
         accent: '#CB2027',
     },
+    heroImages: [
+        '/hero.jpg',
+    ],
 
     social: {
         instagram: 'https://www.instagram.com/atlanticflagpole/',

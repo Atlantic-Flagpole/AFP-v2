@@ -6,7 +6,7 @@ export default function TrustBadges() {
             description: 'Manufactured with American pride and high-quality materials.',
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.25V18a2.25 2.25 0 0 0 2.25 2.25h13.5A2.25 2.25 0 0 0 21 18V8.25m-18 0V6a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6ZM7.5 6h.008v.008H7.5V6Zm2.25 0h.008v.008H9.25V6Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.25V18a2.25 2.25 0 0 0 2.25 2.25h13.5A2.25 2.25 0 0 0 21 18V8.25m-18 0V6a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 6v2.25m-18 0h18" />
                 </svg>
             ),
         },
@@ -20,29 +20,29 @@ export default function TrustBadges() {
             ),
         },
         {
-            title: '30-Day Guarantee',
-            description: 'Risk-free shopping. If you are not satisfied, we will make it right.',
+            title: 'Forever Warranty',
+            description: 'The last flagpole you\'ll ever buy. Guaranteed for a lifetime of performance.',
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
                 </svg>
             ),
         },
     ];
 
     return (
-        <section className="py-20 bg-white">
+        <section className="py-24 bg-white">
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
                     {badges.map((badge) => (
                         <div key={badge.title} className="flex flex-col items-center text-center group">
-                            <div className="mb-6 p-4 bg-navy/5 text-navy rounded-2xl group-hover:bg-navy group-hover:text-white transition-all duration-300">
+                            <div className="mb-8 p-6 bg-zinc-50 text-navy rounded-[2rem] border border-zinc-100 group-hover:bg-navy group-hover:text-white group-hover:scale-110 transition-all duration-500">
                                 {badge.icon}
                             </div>
-                            <h3 className="text-xl font-bold text-navy mb-3 uppercase tracking-tight">
+                            <h3 className="text-xl font-black text-navy mb-4 uppercase tracking-tight italic">
                                 {badge.title}
                             </h3>
-                            <p className="text-navy/60 leading-relaxed max-w-xs">
+                            <p className="text-navy/40 text-sm font-bold leading-relaxed max-w-xs uppercase tracking-widest">
                                 {badge.description}
                             </p>
                         </div>
