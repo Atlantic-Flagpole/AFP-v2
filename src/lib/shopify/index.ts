@@ -2,7 +2,9 @@
 const SHOPIFY_API_VERSION = '2024-10';
 
 const getShopifyEndpoint = () => {
-  const domain = process.env.SHOPIFY_STORE_DOMAIN;
+  const domain = process.env.SHOPIFY_STORE_DOMAIN || 'atlantic-flag-and-pole-inc.myshopify.com';
+  console.log('Shopify Domain:', domain); // Debug log
+
   if (!domain) {
     throw new Error('SHOPIFY_STORE_DOMAIN is not defined in environment variables');
   }
@@ -52,7 +54,7 @@ export async function shopifyFetch<T>({
 }): Promise<{ status: number; body: T }> {
   try {
     const endpoint = getShopifyEndpoint();
-    const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+    const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || '7719aa2e309717c071f7bb746c71e455';
 
     if (!token) {
       throw new Error('SHOPIFY_STOREFRONT_ACCESS_TOKEN is not defined');
