@@ -184,3 +184,47 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   return res.body.data.product;
 }
 
+const checkoutCreateMutation = `
+  mutation checkoutCreate($input: CheckoutCreateInput!) {
+    checkoutCreate(input: $input) {
+      checkout {
+        webUrl
+      }
+      checkoutUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export async function createCheckout(items: { variantId: string; quantity: number }[]): Promise<string> {
+  const res = await shopifyFetch<{
+    data: {
+      checkoutCreate: {
+        checkout: { webUrl: string };
+        checkoutUserErrors: any[];
+      };
+    };
+  }>({
+    query: checkoutCreateMutation,
+    variables: {
+      input: {
+        lineItems: items.map((item) => ({
+          variantId: item.variantId,
+          quantity: item.quantity,
+        })),
+      },
+    },
+    cache: 'no-store',
+  });
+
+  if (res.body.data.checkoutCreate.checkoutUserErrors.length > 0) {
+    throw new Error(res.body.data.checkoutCreate.checkoutUserErrors[0].message);
+  }
+
+  return res.body.data.checkoutCreate.checkout.webUrl;
+}
+
+

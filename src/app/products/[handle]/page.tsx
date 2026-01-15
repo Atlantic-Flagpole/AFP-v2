@@ -7,7 +7,9 @@ import TrustBadges from '@/components/ui/TrustBadges';
 import StickyBuyBar from '@/components/product/StickyBuyBar';
 import ProductStorytelling from '@/components/product/ProductStorytelling';
 import ReviewBlock from '@/components/product/ReviewBlock';
+import ProductForm from '@/components/product/ProductForm';
 import { notFound } from 'next/navigation';
+
 
 type Props = {
     params: Promise<{ handle: string }>;
@@ -104,9 +106,8 @@ export default async function ProductPage({ params }: Props) {
                                 </ul>
                             </div>
 
-                            <button className="w-full py-6 bg-navy text-white text-xl font-bold rounded-full hover:bg-accent transition-all shadow-2xl shadow-navy/20 active:scale-[0.98]">
-                                Add To Cart
-                            </button>
+                            <ProductForm product={product} />
+
                         </div>
                     </div>
                 </div>
