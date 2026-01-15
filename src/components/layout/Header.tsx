@@ -60,14 +60,32 @@ export default function Header({ menu }: { menu: Menu[] }) {
 
                 <nav className="hidden lg:flex items-center gap-10">
                     {menu.map((item) => (
-                        <Link
-                            key={item.title}
-                            href={item.path}
-                            className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:text-accent relative group ${textColor}`}
-                        >
-                            {item.title}
-                            <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full" />
-                        </Link>
+                        <div key={item.title} className="relative group h-full flex items-center">
+                            <Link
+                                href={item.path}
+                                className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:text-accent relative py-4 ${textColor}`}
+                            >
+                                {item.title}
+                                <span className="absolute bottom-2 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full" />
+                            </Link>
+
+                            {/* Dropdown for Submenu */}
+                            {item.items && item.items.length > 0 && (
+                                <div className="absolute top-full left-0 min-w-[200px] pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
+                                    <div className="bg-white rounded-xl shadow-xl border border-navy/5 overflow-hidden flex flex-col py-2">
+                                        {item.items.map((subItem) => (
+                                            <Link
+                                                key={subItem.title}
+                                                href={subItem.path}
+                                                className="px-6 py-3 text-[11px] font-bold text-navy hover:bg-zinc-50 hover:text-accent transition-colors uppercase tracking-widest text-left"
+                                            >
+                                                {subItem.title}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     ))}
                     <a
                         href={BRAND_CONFIG.contact.phoneClick}
