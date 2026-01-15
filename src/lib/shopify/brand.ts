@@ -1,5 +1,7 @@
 export const BRAND_CONFIG = {
     name: 'Atlantic Flagpole',
+    tagline: "The Last Flagpole You'll Ever Need. Guaranteed.™",
+    description: "Home of the Legendary Phoenix 365-Day Home Trial.",
     logo: {
         url: '/logo.png',
         alt: 'Atlantic Flagpole Logo',
@@ -17,12 +19,14 @@ export const BRAND_CONFIG = {
     ],
 
     social: {
-        instagram: 'https://www.instagram.com/bankroll_bop93/',
-        tiktok: 'https://www.tiktok.com/@bankrollbop?is_from_webapp=1&sender_device=pc',
+        instagram: 'https://www.instagram.com/atlanticflagpole/',
+        facebook: 'https://www.facebook.com/AtlanticFlagpole',
+        youtube: 'https://www.youtube.com/user/telescopingflagpole',
+        twitter: 'https://x.com/AtlanticFlagP',
     },
     contact: {
-        phone: '518-917-3429',
-        phoneClick: 'tel:5189173429',
+        phone: '518-400-0765',
+        phoneClick: 'tel:5184000765',
     },
 };
 

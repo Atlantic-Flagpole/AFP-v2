@@ -32,12 +32,12 @@ export default function Hero() {
                     </div>
 
                     <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-[0.9] mb-8 tracking-[-0.04em] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100 uppercase">
-                        The Last Flagpole <br />
+                        Phoenix: The Last Flagpole <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-hover italic">You'll Ever Need.</span>
                     </h1>
 
                     <p className="text-xl md:text-2xl text-white/70 mb-12 leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-12 duration-700 delay-200">
-                        Engineered for maximum durability. American-made excellence for patriots who demand the best.
+                        {BRAND_CONFIG.description}
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-in fade-in slide-in-from-bottom-16 duration-700 delay-300">
@@ -59,8 +59,8 @@ export default function Hero() {
                     <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-20 duration-1000 delay-500">
                         {[
                             { label: 'Made in USA', icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> },
-                            { label: 'Veteran Owned', icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> },
-                            { label: BRAND_CONFIG.contact.phone, icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> },
+                            { label: '365-Day Trial', icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> },
+                            { label: '100 MPH Wind', icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17.7 7.7A7.1 7.1 0 1 1 5 8M18 8h3M18 12h3M15 16h6"></path></svg> },
                         ].map((item) => (
                             <div key={item.label} className="flex items-center justify-center gap-3 group">
                                 {item.label === BRAND_CONFIG.contact.phone ? (

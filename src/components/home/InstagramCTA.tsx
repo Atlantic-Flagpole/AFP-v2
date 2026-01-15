@@ -27,7 +27,7 @@ export default function InstagramCTA() {
                             target="_blank"
                             className="inline-flex items-center gap-3 px-10 py-5 bg-white text-navy font-black rounded-full hover:bg-accent hover:text-white transition-all transform hover:scale-105 active:scale-95 uppercase tracking-tighter"
                         >
-                            @bankroll_bop93
+                            @atlanticflagpole
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                         </Link>
                     </div>
