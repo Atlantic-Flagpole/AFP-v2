@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import PromoBar from "@/components/layout/PromoBar";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
 import { BRAND_CONFIG } from "@/lib/shopify/brand";
@@ -47,6 +48,7 @@ export default async function RootLayout({
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col font-sans`}
       >
         <CartProvider>
+          <PromoBar />
           <Header menu={menu} />
           <CartDrawer />
           <main className="flex-grow">

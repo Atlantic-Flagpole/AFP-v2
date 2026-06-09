@@ -196,15 +196,15 @@ const getProductQuery = `
 `;
 
 const getProductsQuery = `
-  query getProducts($first: Int!) {
-    products(first: $first) {
+  query getProducts($first: Int!, $query: String) {
+    products(first: $first, query: $query) {
       edges {
         node {
           id
           handle
           title
           descriptionHtml
-          images(first: 1) {
+          images(first: 5) {
             edges {
               node {
                 url
@@ -322,11 +322,14 @@ export async function getCollection(handle: string): Promise<{ title: string; de
   }
 }
 
-export async function getProducts(first: number = 10): Promise<Product[]> {
+export async function getProducts(first: number = 10, searchQuery?: string): Promise<Product[]> {
   try {
     const res = await shopifyFetch<{ data: { products: { edges: { node: Product }[] } } }>({
       query: getProductsQuery,
-      variables: { first },
+      variables: {
+        first,
+        ...(searchQuery && { query: searchQuery })
+      },
     });
 
     return res.body.data.products.edges.map((edge) => edge.node);
