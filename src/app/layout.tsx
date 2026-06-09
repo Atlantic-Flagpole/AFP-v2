@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PromoBar from "@/components/layout/PromoBar";
+import FlaggyWidget from "@/components/flaggy/FlaggyWidget";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
 import { BRAND_CONFIG } from "@/lib/shopify/brand";
@@ -51,6 +52,7 @@ export default async function RootLayout({
           <PromoBar />
           <Header menu={menu} />
           <CartDrawer />
+          <FlaggyWidget />
           <main className="flex-grow">
             {children}
           </main>
